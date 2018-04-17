@@ -5,6 +5,7 @@ const {authenticate} = require('./../middleware/authenticate');
 
 //Signup request
 Router.post('/create', (req, res) => {
+	console.log("create");
 	var body = req.body;
 	var user = new User(body);
 	user.save().then(()=>{
