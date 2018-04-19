@@ -9,7 +9,22 @@ var UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: true,
-    minlength: 3
+    minlength: 3,
+    validate: {
+      validator: validator.isAlpha,
+      message: "{VALUE} is not a valid name"
+    }
+  },
+  userType: {
+    type: String,
+    trim: true,
+    required: true,
+    enum: ["volunteer", "organizer"],
+    minlength: 9,
+    validate: {
+      validator: validator.isAlpha,
+      message: "{VALUE} is not a valid user"
+    }
   },
   email: {
     type: String,
@@ -20,13 +35,14 @@ var UserSchema = new mongoose.Schema({
     trim: true,
     validate: {
       validator: validator.isEmail,
-      message: '{VALUE} is not a valid email'
+      message: "{VALUE} is not a valid email"
     }
   },
   password: {
     type: String,
     required: true,
-    minlength: 6
+    trim: true,
+    minlength: 8
   },
   tokens: [
     {
@@ -45,14 +61,14 @@ var UserSchema = new mongoose.Schema({
 UserSchema.methods.toJSON = function() {
 	var user = this;
 	var userObject = user.toObject();
-	return _.pick(userObject, ['_id' ,'name', 'email']);
+	return _.pick(userObject, ['_id' ,'name', 'email', 'userType']);
 };
 
 UserSchema.methods.generateAuthToken = function() {
   var user = this;
   var access = 'auth';
 
-  var token = jwt.sign({_id:user._id.toHexString(), access}, 'abc123').toString();
+  var token = jwt.sign({_id:user._id.toHexString(), access}, 'HDksh43k43659cfdkjds453kf').toString();
   user.tokens.push({access, token});
 
   return user.save().then(()=>{
@@ -65,7 +81,7 @@ UserSchema.statics.findByToken = function(token) {
 	var decoded;
 
 	try {
-		decoded = jwt.verify(token, 'abc123');
+		decoded = jwt.verify(token, 'HDksh43k43659cfdkjds453kf');
 	} catch(e) {
 		return Promise.reject();
 	}
