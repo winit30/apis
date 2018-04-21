@@ -7,9 +7,9 @@ Router.post('/create', authenticate, (req, res) => {
 	var body = req.body;
 			body.organizerId = req.user._id;
 	var event = new Event(body);
-	event.save().then((event)=>{
+	event.save().then((event) => {
 		 res.send(event);
-	}).catch((e)=>{
+	}).catch((e) => {
 		res.send(e);
 	});
 });
@@ -23,19 +23,17 @@ Router.get('/events', authenticate, (req, res) => {
 
 //api update by id request
 Router.put('/updateEvent/:_id', authenticate, (req, res) => {
-	Event.updateEvent(req.params._id, req.user._id, req.body).then((event)=>{
+	Event.updateEvent(req.params._id, req.user._id, req.body).then((event) => {
 		res.send(event);
 	}).catch((err) => {
 		res.send(err);
 	});
 });
 
-
-
 //api delete by id request
 Router.delete('/delete/:_id', authenticate, (req, res) => {
-	Event.findAndDelete(req.params._id, req.user._id).then((result)=>{
-		res.send(result);
+	Event.findAndDelete(req.params._id, req.user._id).then(() => {
+		res.status(200).send(req.params._id+" : event deleted");
 	}).catch((err) => {
 		console.log(err);
 		res.send(err);

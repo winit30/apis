@@ -27,7 +27,7 @@ Router.post('/login', (req, res) => {
 	console.log("here");
 	var body = _.pick(req.body, ['email', 'password']);
 	User.findByCredentials(body.email, body.password).then((user) => {
-		return user.generateAuthToken().then((token)=>{
+		return user.generateAuthToken().then((token) => {
 			res.header('x-auth', token).send(user);
 		});
 	}).catch((e) => {
@@ -36,10 +36,10 @@ Router.post('/login', (req, res) => {
 });
 
 //logout request
-Router.delete('/logout', authenticate, (req, res)=>{
+Router.delete('/logout', authenticate, (req, res) => {
 	req.user.removeToken(req.token).then(()=>{
-		res.status(200).send();
-	}, ()=> {
+		res.status(200).send("user logged out");
+	}, () => {
 		res.status(400).send();
 	})
 });
