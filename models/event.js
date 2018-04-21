@@ -3,20 +3,68 @@ const validator = require('validator');
 const _ = require('lodash');
 
 var EventSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     trim: true,
     required: true,
     minlength: 3
   },
-  phone: {
+  category: {
     type: String,
     trim: true,
     required: true,
-    minlength: 10
+    minlength: 3
   },
-  userID: {
+  date: {
+    type: Date,
+    trim: true,
+    required: true
+  },
+  createdDate: {
+    type: Date,
+    default: Date.now
+  },
+  description: {
     type: String,
+    trim: true,
+    required: true,
+    minlength: 50,
+    maxLength: 500
+  },
+  venue: {
+    type: String,
+    trim: true,
+    required: true,
+    minlength: 50,
+    maxLength: 200
+  },
+  pincode: {
+    type: Number,
+    trim: true,
+    required: true,
+    minlength: 6,
+    maxLength: 6
+  },
+  city: {
+    type: String,
+    trim: true,
+    required: true,
+    minlength: 3
+  },
+  state: {
+    type: String,
+    trim: true,
+    required: true,
+    minlength: 3
+  },
+  country: {
+    type: String,
+    trim: true,
+    required: true,
+    minlength: 3
+  },
+  organizerId: {
+    type: mongoose.Schema.Types.ObjectId,
     trim: true,
     required: true,
     minlength: 5
@@ -26,27 +74,25 @@ var EventSchema = new mongoose.Schema({
 EventSchema.methods.toJSON = function() {
 	var event = this;
 	var eventObject = event.toObject();
-	return _.pick(eventObject, ['_id' ,'name', 'phone']);
+	return _.pick(eventObject, ['_id' ,'title', 'category', 'date', 'description', 'venue', 'pincode', 'city', 'state', 'country', 'createdDate', 'organizerId']);
 };
 
-//Find by userID
-EventSchema.statics.findEventsByUserId = function(userID) {
+//Find by organizerId
+EventSchema.statics.findEventsByOrganizerId = function(organizerId) {
   var Event = this;
-  return Event.find({userID})
+  return Event.find({organizerId})
 }
 
 //Find by id and update (private)
-EventSchema.statics.updateEvent = function(_id, userID, body) {
+EventSchema.statics.updateEvent = function(_id, organizerId, body) {
   const Event = this;
-  return Event.update({_id, userID}, {$set:body}, {new: true});
+  return Event.update({_id, organizerId}, {$set:body}, {new: true});
 }
 
-
-
 // Find by id and delete
-EventSchema.statics.findAndDelete = function(_id, userID) {
+EventSchema.statics.findAndDelete = function(_id, organizerId) {
   var Event = this;
-  return Event.remove({_id, userID});
+  return Event.remove({_id, organizerId});
 }
 
 var Event = mongoose.model('Event', EventSchema);

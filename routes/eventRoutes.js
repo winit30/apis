@@ -5,7 +5,7 @@ const {authenticate} = require('./../middleware/authenticate');
 
 Router.post('/create', authenticate, (req, res) => {
 	var body = req.body;
-			body.userID = req.user._id;
+			body.organizerId = req.user._id;
 	var event = new Event(body);
 	event.save().then((event)=>{
 		 res.send(event);
@@ -16,7 +16,7 @@ Router.post('/create', authenticate, (req, res) => {
 
 //Get events request
 Router.get('/events', authenticate, (req, res) => {
-	Event.findEventsByUserId(req.user._id).then((events) => {
+	Event.findEventsByOrganizerId(req.user._id).then((events) => {
 		res.send(events);
 	})
 });
