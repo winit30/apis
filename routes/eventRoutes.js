@@ -33,7 +33,7 @@ Router.put('/updateEvent/:_id', authenticate, (req, res) => {
 //api delete by id request
 Router.delete('/delete/:_id', authenticate, (req, res) => {
 	Event.findAndDelete(req.params._id, req.user._id).then(() => {
-		res.status(200).send(req.params._id+" : event deleted");
+		res.send(req.params._id+" : event deleted");
 	}).catch((err) => {
 		console.log(err);
 		res.send(err);
