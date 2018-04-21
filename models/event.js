@@ -24,6 +24,10 @@ var EventSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  isActive: {
+    type:Boolean ,
+    default: false
+  },
   description: {
     type: String,
     trim: true,
@@ -74,7 +78,7 @@ var EventSchema = new mongoose.Schema({
 EventSchema.methods.toJSON = function() {
 	var event = this;
 	var eventObject = event.toObject();
-	return _.pick(eventObject, ['_id' ,'title', 'category', 'date', 'description', 'venue', 'pincode', 'city', 'state', 'country', 'createdDate', 'organizerId']);
+	return _.pick(eventObject, ['_id' ,'title', 'category', 'date', 'description', 'venue', 'pincode', 'city', 'state', 'country', 'createdDate', 'organizerId', 'isActive']);
 };
 
 //Find by organizerId
