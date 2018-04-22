@@ -87,6 +87,12 @@ EventSchema.statics.findEventsByOrganizerId = function(organizerId) {
   return Event.find({organizerId})
 }
 
+//Find by city
+EventSchema.statics.findEventsByCity = function(city) {
+  var Event = this;
+  return Event.find({city})
+}
+
 //Find by id and update (private)
 EventSchema.statics.updateEvent = function(_id, organizerId, body) {
   const Event = this;

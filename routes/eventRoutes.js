@@ -18,7 +18,14 @@ Router.post('/create', authenticate, (req, res) => {
 Router.get('/events', authenticate, (req, res) => {
 	Event.findEventsByOrganizerId(req.user._id).then((events) => {
 		res.send(events);
-	})
+	});
+});
+
+//Get events request
+Router.get('/events/:city', authenticate, (req, res) => {
+	Event.findEventsByCity(req.params.city).then((events) => {
+		res.send(events);
+	});
 });
 
 //api update by id request
