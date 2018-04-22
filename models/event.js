@@ -32,14 +32,14 @@ var EventSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: true,
-    minlength: 50,
+    minlength: 10,
     maxLength: 500
   },
   venue: {
     type: String,
     trim: true,
     required: true,
-    minlength: 50,
+    minlength: 10,
     maxLength: 200
   },
   pincode: {
