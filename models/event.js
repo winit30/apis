@@ -36,36 +36,16 @@ var EventSchema = new mongoose.Schema({
     maxLength: 500
   },
   venue: {
-    type: String,
-    trim: true,
-    required: true,
-    minlength: 10,
-    maxLength: 200
-  },
-  pincode: {
-    type: Number,
-    trim: true,
-    required: true,
-    minlength: 6,
-    maxLength: 6
-  },
-  city: {
-    type: String,
-    trim: true,
-    required: true,
-    minlength: 3
-  },
-  state: {
-    type: String,
-    trim: true,
-    required: true,
-    minlength: 3
-  },
-  country: {
-    type: String,
-    trim: true,
-    required: true,
-    minlength: 3
+      description: {
+        type: String,
+        trim: true,
+        required: true
+      },
+      place_id: {
+        type: String,
+        trim: true,
+        required: true
+      }
   },
   organizerId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -78,7 +58,7 @@ var EventSchema = new mongoose.Schema({
 EventSchema.methods.toJSON = function() {
 	var event = this;
 	var eventObject = event.toObject();
-	return _.pick(eventObject, ['_id' ,'title', 'category', 'date', 'description', 'venue', 'pincode', 'city', 'state', 'country', 'createdDate', 'organizerId', 'isActive']);
+	return _.pick(eventObject, ['_id' ,'title', 'category', 'date', 'description', 'venue', 'createdDate', 'organizerId', 'isActive']);
 };
 
 //Find by organizerId
@@ -90,7 +70,7 @@ EventSchema.statics.findEventsByOrganizerId = function(organizerId) {
 //Find by city
 EventSchema.statics.findEventsByCity = function(city) {
   var Event = this;
-  return Event.find({city})
+  return Event.find({"venue.description": new RegExp(city, 'i')});
 }
 
 //Find by id and update (private)
