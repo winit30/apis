@@ -45,6 +45,18 @@ var EventSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true
+      },
+      latlng: {
+        lat: {
+          type: Number,
+          trim: true,
+          required: true
+        },
+        lng: {
+          type: Number,
+          trim: true,
+          required: true
+        }
       }
   },
   organizerId: {
