@@ -51,6 +51,19 @@ CommentSchema.statics.findCommentsByEventId = function(eventId) {
     return EventComment.find({eventId});
 };
 
+CommentSchema.statics.findCommentById = function(_id) {
+    var EventComment = this;
+    return EventComment.find({_id});
+}
+
+CommentSchema.methods.saveCommentReply = function(body) {
+    var comment = this;
+    comment.replies.push(body);
+    return comment.save().then((comment) => {
+        return comment;
+    });
+}
+
 // Find by id and delete
 CommentSchema.statics.findAndDeleteComment = function(_id, commentedby) {
   var EventComment = this;
