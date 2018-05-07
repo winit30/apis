@@ -22,23 +22,34 @@ var CommentSchema = new mongoose.Schema({
         maxLength: 100
     },
     replies: [
-      {
-        repliedby: {
-            type: mongoose.Schema.Types.ObjectId,
-            trim: true,
-            minlength: 5,
-            maxLength: 100
-        },
-        reply: {
-            type: String,
-            trim: true,
-            minlength: 5,
-            maxLength: 100
+        {
+            repliedby: {
+                type: mongoose.Schema.Types.ObjectId,
+                trim: true,
+                minlength: 5,
+                maxLength: 100
+            },
+            reply: {
+                type: String,
+                trim: true,
+                minlength: 5,
+                maxLength: 100
+            }
         }
-      }
     ]
 
 } , {usePushEach: true});
+
+CommentSchema.methods.toJSON = function() {
+  	var comment = this;
+  	var commentObject = event.toObject();
+  	return _.pick(commentObject, ['_id' , 'eventId', 'commentedby', 'comment', 'replies']);
+};
+
+CommentSchema.statics.findCommentsByEventId = function(eventId) {
+    var EventComment = this;
+    EventComment.find({eventId});
+};
 
 var EventComments = mongoose.model('EventComments', CommentSchema);
 
