@@ -52,7 +52,7 @@ CommentSchema.statics.findCommentsByEventId = function(eventId) {
 };
 
 // Find by id and delete
-EventSchema.statics.findAndDelete = function(_id, commentedby) {
+CommentSchema.statics.findAndDelete = function(_id, commentedby) {
   var EventComment = this;
   return Event.remove({_id, commentedby});
 }
