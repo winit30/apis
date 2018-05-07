@@ -54,7 +54,7 @@ CommentSchema.statics.findCommentsByEventId = function(eventId) {
 // Find by id and delete
 CommentSchema.statics.findAndDeleteComment = function(_id, commentedby) {
   var EventComment = this;
-  return Event.remove({_id, commentedby});
+  return EventComment.remove({_id, commentedby});
 }
 
 var EventComments = mongoose.model('EventComments', CommentSchema);
