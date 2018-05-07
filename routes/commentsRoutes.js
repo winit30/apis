@@ -21,7 +21,7 @@ Router.get('/getComments/:eventId', authenticate, (req, res) => {
 });
 
 //Delete comment request
-Router.get('/deleteComment/:id', authenticate, (req, res) => {
+Router.delete('/deleteComment/:id', authenticate, (req, res) => {
   	EventComments.findAndDeleteComment(req.params.id, req.user._id).then((comments) => {
   		res.send(comments);
   	}).catch((err) => {
