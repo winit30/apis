@@ -48,7 +48,7 @@ CommentSchema.methods.toJSON = function() {
 
 CommentSchema.statics.findCommentsByEventId = function(eventId) {
     var EventComment = this;
-    EventComment.find({eventId});
+    return EventComment.find({eventId});
 };
 
 var EventComments = mongoose.model('EventComments', CommentSchema);
