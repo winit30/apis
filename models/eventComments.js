@@ -42,7 +42,7 @@ var CommentSchema = new mongoose.Schema({
 
 CommentSchema.methods.toJSON = function() {
   	var comment = this;
-  	var commentObject = event.toObject();
+  	var commentObject = comment.toObject();
   	return _.pick(commentObject, ['_id' , 'eventId', 'commentedby', 'comment', 'replies']);
 };
 
