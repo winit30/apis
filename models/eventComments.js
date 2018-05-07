@@ -22,6 +22,7 @@ var CommentSchema = new mongoose.Schema({
         maxLength: 100
     },
     replies: [
+      {
         repliedby: {
             type: mongoose.Schema.Types.ObjectId,
             trim: true,
@@ -34,6 +35,7 @@ var CommentSchema = new mongoose.Schema({
             minlength: 5,
             maxLength: 100
         }
+      }
     ]
 
 } , {usePushEach: true});
