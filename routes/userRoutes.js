@@ -22,6 +22,17 @@ Router.get('/user', authenticate , (req, res) => {
 	res.send(req.user);
 });
 
+//Get user request
+Router.post('/username', authenticate , (req, res) => {
+	const body = req.body;
+	User.findOne({_id: body._id}).then((user) => {
+			console.log(user);
+			res.send(user.name);
+	}).catch((e) => {
+			res.status(400).send(e);
+	})
+});
+
 //Login request
 Router.post('/login', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
