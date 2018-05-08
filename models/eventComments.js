@@ -58,7 +58,6 @@ CommentSchema.statics.findCommentById = function(_id) {
 
 CommentSchema.methods.saveCommentReply = function(body) {
     var comment = this;
-    console.log("here 2", body);
     comment.replies.push(body);
     return comment.save().then(() => {
         return comment;
