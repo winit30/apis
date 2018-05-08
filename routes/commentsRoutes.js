@@ -24,11 +24,12 @@ Router.get('/getComments/:eventId', authenticate, (req, res) => {
 Router.put('/replyComment/:id', authenticate, (req, res) => {
     var body = req.body;
   	EventComments.findCommentById(req.params.id).then((comment) => {
-        console.log("here", body);
-        return comment.saveCommentReply(body);
-  	}).then((comment) => {
-        res.send(comment);
-    }).catch((e)=>{
+        console.log("here", comment);
+        return comment.saveCommentReply(body).then((comment) => {
+            console.log("here 3");
+            res.send(comment);
+        });
+  	}).catch((e)=>{
   		res.send(e);
   	});
 });

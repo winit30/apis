@@ -24,7 +24,6 @@ Router.get('/user', authenticate , (req, res) => {
 
 //Login request
 Router.post('/login', (req, res) => {
-	console.log("here");
 	var body = _.pick(req.body, ['email', 'password']);
 	User.findByCredentials(body.email, body.password).then((user) => {
 		return user.generateAuthToken().then((token) => {
