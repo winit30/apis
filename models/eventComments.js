@@ -64,6 +64,15 @@ CommentSchema.methods.saveCommentReply = function(body) {
     });
 }
 
+CommentSchema.methods.deleteCommentReply = function(body) {
+    var comment = this;
+    return comment.update({
+      $pull: {
+        replies: body
+      }
+    });
+}
+
 // Find by id and delete
 CommentSchema.statics.findAndDeleteComment = function(_id, commentedby) {
   var EventComment = this;
