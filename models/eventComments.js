@@ -65,10 +65,14 @@ CommentSchema.methods.saveCommentReply = function(body) {
 }
 
 CommentSchema.methods.deleteCommentReply = function(body) {
+    console.log(body);
     var comment = this;
     return comment.update({
       $pull: {
-        replies: body
+        replies: {
+          _id: body._id,
+          replyId: body.replyId
+        }
       }
     });
 }
