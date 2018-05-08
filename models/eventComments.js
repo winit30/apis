@@ -53,7 +53,7 @@ CommentSchema.statics.findCommentsByEventId = function(eventId) {
 
 CommentSchema.statics.findCommentById = function(_id) {
     var EventComment = this;
-    return EventComment.find({_id});
+    return EventComment.findOne({_id});
 }
 
 CommentSchema.methods.saveCommentReply = function(body) {
