@@ -71,7 +71,7 @@ CommentSchema.methods.deleteCommentReply = function(body) {
       $pull: {
         replies: {
           _id: body._id,
-          replyId: body.replyId
+          repliedby: body.repliedby
         }
       }
     });
