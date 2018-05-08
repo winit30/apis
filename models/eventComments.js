@@ -14,6 +14,12 @@ var CommentSchema = new mongoose.Schema({
         required: true,
         minlength: 5
     },
+    commenter: {
+        type: String,
+        trim: true,
+        required: true,
+        minlength: 1
+    },
     comment: {
         type: String,
         trim: true,
@@ -29,10 +35,16 @@ var CommentSchema = new mongoose.Schema({
                 minlength: 5,
                 maxLength: 100
             },
+            replied: {
+              type: String,
+              trim: true,
+              minlength: 1,
+              maxLength: 100
+            },
             reply: {
                 type: String,
                 trim: true,
-                minlength: 5,
+                minlength: 1,
                 maxLength: 100
             }
         }
@@ -43,7 +55,7 @@ var CommentSchema = new mongoose.Schema({
 CommentSchema.methods.toJSON = function() {
   	var comment = this;
   	var commentObject = comment.toObject();
-  	return _.pick(commentObject, ['_id' , 'eventId', 'commentedby', 'comment', 'replies']);
+  	return _.pick(commentObject, ['_id' , 'eventId', 'commentedby', 'commenter', 'comment', 'replies']);
 };
 
 CommentSchema.statics.findCommentsByEventId = function(eventId) {
