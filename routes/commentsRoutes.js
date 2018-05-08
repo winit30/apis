@@ -33,7 +33,7 @@ Router.put('/replyComment/:id', authenticate, (req, res) => {
 });
 
 //Delete reply request
-Router.delete('/deleteReply/:id', authenticate, (req, res) => {
+Router.put('/deleteReply/:id', authenticate, (req, res) => {
     var body = req.body;
     console.log("here", body);
     EventComments.findCommentById(req.params.id).then((comment) => {
