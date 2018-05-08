@@ -69,10 +69,7 @@ CommentSchema.methods.deleteCommentReply = function(body) {
     var comment = this;
     return comment.update({
       $pull: {
-        replies: {
-          _id: body._id,
-          repliedby: body.repliedby
-        }
+        replies: body
       }
     });
 }
