@@ -56,7 +56,7 @@ Router.put('/deleteReply/:id', authenticate, (req, res) => {
 });
 
 //Delete comment request
-Router.delete('/deleteComment/:id', authenticate, (req, res) => {
+Router.put('/deleteComment/:id', authenticate, (req, res) => {
     const body = req.body;
     console.log(body);
     Event.findEventById(body.eventId).then((event) => {
