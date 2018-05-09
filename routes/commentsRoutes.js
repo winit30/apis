@@ -46,7 +46,7 @@ Router.put('/deleteReply/:id', authenticate, (req, res) => {
 
 //Delete comment request
 Router.delete('/deleteComment/:id', authenticate, (req, res) => {
-  	EventComments.findAndDeleteComment(req.params.id, req.user._id).then((comments) => {
+  	EventComments.findAndDeleteComment(req.params.id).then((comments) => {
   		res.send(comments);
   	}).catch((err) => {
   		console.log(err);
