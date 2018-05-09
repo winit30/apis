@@ -86,9 +86,9 @@ CommentSchema.methods.deleteCommentReply = function(body) {
 }
 
 // Find by id and delete
-CommentSchema.statics.findAndDeleteComment = function(_id) {
+CommentSchema.statics.findAndDeleteComment = function(body) {
   var EventComment = this;
-  return EventComment.remove({_id});
+  return EventComment.remove(body);
 }
 
 var EventComments = mongoose.model('EventComments', CommentSchema);
