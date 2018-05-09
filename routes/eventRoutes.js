@@ -22,7 +22,7 @@ Router.get('/events', authenticate, (req, res) => {
 });
 
 //Get event by id request
-Router.get('/events/:id', authenticate, (req, res) => {
+Router.get('/event/:id', authenticate, (req, res) => {
 	Event.findEventById(req.params.id).then((event) => {
 		res.send(event);
 	});
