@@ -55,7 +55,7 @@ Router.delete('/deleteComment/:id', authenticate, (req, res) => {
         if(event.organizerId !== req.user._id) {
             deleteQuery.commentedby = req.user._id;
         }
-        EventComments.findAndDeleteComment(deleteQuery);
+        return EventComments.findAndDeleteComment(deleteQuery);
     }).then((comments) => {
   		  res.send(comments);
   	}).catch((err) => {
