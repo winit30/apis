@@ -1,5 +1,6 @@
 const Router = require('express').Router();
 const {EventComments} = require('./../models/eventComments');
+const {Event} = require('./../models/event');
 const _ = require('lodash');
 const {authenticate} = require('./../middleware/authenticate');
 
@@ -46,11 +47,20 @@ Router.put('/deleteReply/:id', authenticate, (req, res) => {
 
 //Delete comment request
 Router.delete('/deleteComment/:id', authenticate, (req, res) => {
-  	EventComments.findAndDeleteComment(req.params.id).then((comments) => {
-  		res.send(comments);
+    const body = req.body;
+    Event.findEventById(body.eventId).then((event) => {
+        const deleteQuery = {
+            _id: req.params.id
+        }
+        if(event.organizerId !== req.user._id) {
+            deleteQuery.commentedby = req.user._id;
+        }
+        EventComments.findAndDeleteComment(deleteQuery);
+    }).then((comments) => {
+  		  res.send(comments);
   	}).catch((err) => {
-  		console.log(err);
-  		res.send(err);
+    		console.log(err);
+    		res.send(err);
   	});
 });
 

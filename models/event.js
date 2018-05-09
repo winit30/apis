@@ -79,6 +79,12 @@ EventSchema.statics.findEventsByOrganizerId = function(organizerId) {
   return Event.find({organizerId})
 }
 
+//Find by id
+EventSchema.statics.findEventById = function(_id) {
+  var Event = this;
+  return Event.find({_id});
+}
+
 //Find by city
 EventSchema.statics.findEventsByCity = function(city) {
   var Event = this;

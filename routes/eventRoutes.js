@@ -21,6 +21,13 @@ Router.get('/events', authenticate, (req, res) => {
 	});
 });
 
+//Get event by id request
+Router.get('/events/:id', authenticate, (req, res) => {
+	Event.findEventById(req.params.id).then((event) => {
+		res.send(event);
+	});
+});
+
 //Get events request
 Router.get('/events/:city', authenticate, (req, res) => {
 	Event.findEventsByCity(req.params.city).then((events) => {
