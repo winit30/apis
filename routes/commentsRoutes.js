@@ -60,11 +60,9 @@ Router.delete('/deleteComment/:id', authenticate, (req, res) => {
     const body = req.body;
     console.log(body);
     Event.findEventById(body.eventId).then((event) => {
-        console.log(event);
         const deleteQuery = {
             _id: req.params.id
         }
-        console.log(event.organizerId, req.user._id);
         if(event.organizerId+"" !== req.user._id+"") {
             deleteQuery.commentedby = req.user._id;
         }
