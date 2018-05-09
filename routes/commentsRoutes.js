@@ -48,7 +48,7 @@ Router.put('/deleteReply/:id', authenticate, (req, res) => {
             deleteQuery.repliedby = req.user._id;
         }
         comment.deleteCommentReply(deleteQuery);
-    })then((result) => {
+    }).then((result) => {
         res.send(result);
     }).catch((e)=>{
       res.send(e);
