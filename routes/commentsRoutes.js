@@ -36,10 +36,20 @@ Router.put('/replyComment/:id', authenticate, (req, res) => {
 //Delete reply request
 Router.put('/deleteReply/:id', authenticate, (req, res) => {
     var body = req.body;
-    EventComments.findCommentById(req.params.id).then((comment) => {
-        return comment.deleteCommentReply(body);
-    }).then((comment) => {
-        res.send(comment);
+    var comment;
+    EventComments.findCommentById(req.params.id).then((result) => {
+        comment = result;
+        return Event.findEventById(comment.eventId);
+    }).then((event) => {
+        const deleteQuery = {
+            _id: body._id
+        }
+        if(event.organizerId+"" !== req.user._id+"") {
+            deleteQuery.repliedby = req.user._id;
+        }
+        comment.deleteCommentReply(deleteQuery);
+    })then((result) => {
+        res.send(result);
     }).catch((e)=>{
       res.send(e);
     });
