@@ -47,7 +47,7 @@ Router.put('/deleteReply/:id', authenticate, (req, res) => {
         if(event.organizerId+"" !== req.user._id+"") {
             deleteQuery.repliedby = req.user._id;
         }
-        comment.deleteCommentReply(deleteQuery);
+        return comment.deleteCommentReply(deleteQuery);
     }).then((result) => {
         res.send(result);
     }).catch((e)=>{
