@@ -76,6 +76,13 @@ CommentSchema.methods.saveCommentReply = function(body) {
     });
 }
 
+// Find by id and delete
+CommentSchema.statics.findAndDeleteComment = function(body) {
+  console.log(body);
+  var EventComment = this;
+  return EventComment.remove(body);
+}
+
 CommentSchema.methods.deleteCommentReply = function(body) {
     var comment = this;
     return comment.update({
@@ -83,12 +90,6 @@ CommentSchema.methods.deleteCommentReply = function(body) {
         replies: body
       }
     });
-}
-
-// Find by id and delete
-CommentSchema.statics.findAndDeleteComment = function(body) {
-  var EventComment = this;
-  return EventComment.remove(body);
 }
 
 var EventComments = mongoose.model('EventComments', CommentSchema);

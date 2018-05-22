@@ -58,7 +58,6 @@ Router.put('/deleteReply/:id', authenticate, (req, res) => {
 //Delete comment request
 Router.put('/deleteComment/:id', authenticate, (req, res) => {
     const body = req.body;
-    console.log(body);
     Event.findEventById(body.eventId).then((event) => {
         const deleteQuery = {
             _id: req.params.id

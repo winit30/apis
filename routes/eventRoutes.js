@@ -1,5 +1,6 @@
 const Router = require('express').Router();
 const {Event} = require('./../models/event');
+const {EventComments} = require('./../models/eventComments');
 const _ = require('lodash');
 const {authenticate} = require('./../middleware/authenticate');
 
@@ -46,7 +47,16 @@ Router.put('/updateEvent/:_id', authenticate, (req, res) => {
 
 //api delete by id request
 Router.delete('/delete/:_id', authenticate, (req, res) => {
-	Event.findAndDelete(req.params._id, req.user._id).then((result) => {
+	eventId = req.params._id;
+	Event.findAndDelete(eventId, req.user._id).then((result) => {
+		if(!result) {
+				res.send("unable to delete");
+				return false;
+		}
+		const deleteQuery = {
+				eventId: eventId
+		}
+		EventComments.findAndDeleteComment(deleteQuery);
 		res.send(result);
 	}).catch((err) => {
 		console.log(err);
