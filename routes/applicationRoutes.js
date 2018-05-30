@@ -11,17 +11,24 @@ Router.post("/apply", authenticate, (req, res) => {
             applierName: req.user.name
         }]
     }
+    const user = req.user;
     Applications.checkApplicationForEvent(req.body.eventId).then((application) => {
         if(!application.length) {
             var newApplication = new Applications(body);
             return newApplication.save();
         } else if (_.isMatch(_.find(application[0].appliers, ["applierName", req.user.name]), { applierName: req.user.name})) {
-            res.send(application);
+              return new Promise((resolve, reject) => {
+                  resolve(application[0]);
+              });
         } else {
-            return application[0].addNewApplication(body.appliers[0]);
+              return application[0].addNewApplication(body.appliers[0]);
         }
     }).then((result) => {
-        res.send(result)
+        const response = {
+            eventId: result.eventId,
+            applier: _.find(result.appliers, ["applierName", user.name])
+        };
+        res.send(response);
     }).catch((err) => {
         console.log(err);
         res.send(err);

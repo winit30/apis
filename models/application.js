@@ -25,7 +25,7 @@ var ApplySchema = new mongoose.Schema({
             status: {
               type: String,
               trim: true,
-              enum: ["notseen", "seen", "approved", "rejected"],
+              enum: ["notseen", "Seen", "Approved", "Rejected"],
               default: "notseen"
             },
             appliedDate: {
@@ -45,6 +45,7 @@ ApplySchema.statics.checkApplicationForEvent = function(eventId) {
 ApplySchema.methods.addNewApplication = function(body) {
     var application = this;
     application.appliers.push(body);
+    console.log(body);
     return application.save().then(() => {
         return application;
     });
