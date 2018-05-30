@@ -50,6 +50,11 @@ ApplySchema.methods.addNewApplication = function(body) {
     });
 }
 
+ApplySchema.statics.checkApplicationForUser = function(eventId, applierId) {
+    var Application = this;
+    return Application.findOne({"eventId": eventId, "appliers.applierId": applierId});
+}
+
 var Applications = mongoose.model('Applications', ApplySchema);
 
 module.exports = {Applications};
