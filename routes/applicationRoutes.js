@@ -35,7 +35,7 @@ Router.post("/apply", authenticate, (req, res) => {
     });
 });
 
-Router.get("/getapplications/:eventId", authenticate, (req, res) => {
+Router.get("/getallapplications/:eventId", authenticate, (req, res) => {
     const user = req.user;
     Applications.getApplicationForEvent(req.params.eventId).then((application) => {
         res.send(application);
