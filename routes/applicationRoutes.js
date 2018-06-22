@@ -29,7 +29,10 @@ Router.post("/apply", authenticate, (req, res) => {
             eventId: result.eventId,
             applier: _.find(result.appliers, ["applierName", user.name])
         };
-        Event.addApplicationToEvent(body.eventId, result._id);
+        Event.addApplicationToEvent(body.eventId, result._id).then((resultwa) => {
+          console.log("here");
+          console.log(resultwa);
+        });
         res.send(response);
     }).catch((err) => {
         console.log(err);
