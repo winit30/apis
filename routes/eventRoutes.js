@@ -38,6 +38,7 @@ Router.get('/events/:city', authenticate, (req, res) => {
 
 //api update by id request
 Router.put('/updateEvent/:_id', authenticate, (req, res) => {
+	console.log(req.body);
 	Event.updateEvent(req.params._id, req.user._id, req.body).then((event) => {
 		res.send(event);
 	}).catch((err) => {
