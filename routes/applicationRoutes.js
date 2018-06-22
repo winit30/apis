@@ -1,5 +1,6 @@
 const Router = require('express').Router();
 const {Applications} = require('./../models/application');
+const {Event} = require('./../models/event');
 const _ = require('lodash');
 const {authenticate} = require('./../middleware/authenticate');
 
@@ -15,6 +16,7 @@ Router.post("/apply", authenticate, (req, res) => {
     Applications.checkApplicationForEvent(req.body.eventId).then((application) => {
         if(!application.length) {
             var newApplication = new Applications(body);
+            Event.addApplicationToEvent(req.body.eventId);
             return newApplication.save();
         } else if (_.isMatch(_.find(application[0].appliers, ["applierName", req.user.name]), { applierName: req.user.name})) {
               return new Promise((resolve, reject) => {

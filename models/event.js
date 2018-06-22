@@ -9,6 +9,10 @@ var EventSchema = new mongoose.Schema({
     required: true,
     minlength: 3
   },
+  application: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Applications'
+  },
   category: {
     type: String,
     trim: true,
@@ -101,6 +105,11 @@ EventSchema.statics.updateEvent = function(_id, organizerId, body) {
 EventSchema.statics.findAndDelete = function(_id, organizerId) {
   var Event = this;
   return Event.remove({_id, organizerId});
+}
+
+EventSchema.statics.addApplicationToEvent = function(_id) {
+    const Event = this;
+    return Event.update({_id}, {$set:{application: _id}}, {new: true});
 }
 
 var Event = mongoose.model('Event', EventSchema);
