@@ -74,7 +74,7 @@ var EventSchema = new mongoose.Schema({
 EventSchema.methods.toJSON = function() {
 	var event = this;
 	var eventObject = event.toObject();
-	return _.pick(eventObject, ['_id' ,'title', 'category', 'date', 'description', 'venue', 'createdDate', 'organizerId', 'isActive']);
+	return _.pick(eventObject, ['_id' ,'title', 'category', 'date', 'description', 'venue', 'createdDate', 'organizerId', 'isActive', 'application']);
 };
 
 //Find by organizerId
