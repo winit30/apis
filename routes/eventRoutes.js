@@ -1,5 +1,6 @@
 const Router = require('express').Router();
 const {Event} = require('./../models/event');
+const {Applications} = require('./../models/application');
 const {EventComments} = require('./../models/eventComments');
 const _ = require('lodash');
 const {authenticate} = require('./../middleware/authenticate');
@@ -17,7 +18,11 @@ Router.post('/create', authenticate, (req, res) => {
 
 //Get events request
 Router.get('/events', authenticate, (req, res) => {
-	Event.findEventsByOrganizerId(req.user._id).then((events) => {
+	// Event.findEventsByOrganizerId(req.user._id).then((events) => {
+	// 	res.send(events);
+	// });
+	Event.find({organizerId: req.user._id}).populate('_id').then((events) => {
+		console.log(events);
 		res.send(events);
 	});
 });
