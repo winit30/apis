@@ -56,6 +56,11 @@ ApplySchema.statics.checkApplicationForUser = function(eventId, applierId) {
     return Application.findOne({"eventId": eventId, "appliers.applierId": applierId});
 }
 
+ApplySchema.statics.getApplicationForEvent = function(eventId) {
+    var Application = this;
+    return Application.findOne({eventId});
+}
+
 var Applications = mongoose.model('Applications', ApplySchema);
 
 module.exports = {Applications};

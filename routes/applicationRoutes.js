@@ -35,6 +35,15 @@ Router.post("/apply", authenticate, (req, res) => {
     });
 });
 
+Router.get("/getapplications/:eventId", authenticate, (req, res) => {
+    const user = req.user;
+    Applications.getApplicationForEvent(req.params.eventId).then((application) => {
+        res.send(application);
+    }).catch((e) => {
+        res.send(e);
+    });
+});
+
 Router.get("/getapplication/:eventId", authenticate, (req, res) => {
     const user = req.user;
     Applications.checkApplicationForUser(req.params.eventId, req.user._id).then((application) => {
@@ -59,7 +68,5 @@ Router.get("/numberofapplications/:eventId", authenticate, (req, res) => {
         res.send(e);
     })
 });
-
-
 
 module.exports = Router;
