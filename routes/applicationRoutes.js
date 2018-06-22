@@ -16,7 +16,7 @@ Router.post("/apply", authenticate, (req, res) => {
     Applications.checkApplicationForEvent(req.body.eventId).then((application) => {
         if(!application.length) {
             var newApplication = new Applications(body);
-            Event.addApplicationToEvent(req.body.eventId).then((event) => {
+            Event.addApplicationToEvent(body.eventId).then((event) => {
               console.log("here");
               console.log(event);
             });

@@ -108,6 +108,7 @@ EventSchema.statics.findAndDelete = function(_id, organizerId) {
 }
 
 EventSchema.statics.addApplicationToEvent = function(_id) {
+    console.log(_id);
     const Event = this;
     return Event.update({_id}, {$set:{application: _id}}, {new: true});
 }
