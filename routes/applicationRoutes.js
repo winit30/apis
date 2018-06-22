@@ -16,7 +16,9 @@ Router.post("/apply", authenticate, (req, res) => {
     Applications.checkApplicationForEvent(req.body.eventId).then((application) => {
         if(!application.length) {
             var newApplication = new Applications(body);
-            Event.addApplicationToEvent(req.body.eventId);
+            Event.addApplicationToEvent(req.body.eventId).then((event) => {
+              console.log(event);
+            });
             return newApplication.save();
         } else if (_.isMatch(_.find(application[0].appliers, ["applierName", req.user.name]), { applierName: req.user.name})) {
               return new Promise((resolve, reject) => {
