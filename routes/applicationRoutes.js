@@ -16,10 +16,6 @@ Router.post("/apply", authenticate, (req, res) => {
     Applications.checkApplicationForEvent(req.body.eventId).then((application) => {
         if(!application.length) {
             var newApplication = new Applications(body);
-            Event.addApplicationToEvent(body.eventId).then((event) => {
-              console.log("here");
-              console.log(event);
-            });
             return newApplication.save();
         } else if (_.isMatch(_.find(application[0].appliers, ["applierName", req.user.name]), { applierName: req.user.name})) {
               return new Promise((resolve, reject) => {
@@ -33,6 +29,10 @@ Router.post("/apply", authenticate, (req, res) => {
             eventId: result.eventId,
             applier: _.find(result.appliers, ["applierName", user.name])
         };
+        Event.addApplicationIdToEvent(body.eventId, result._id).then((event) => {
+          console.log("here");
+          console.log(event);
+        });
         res.send(response);
     }).catch((err) => {
         console.log(err);

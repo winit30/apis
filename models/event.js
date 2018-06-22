@@ -107,10 +107,10 @@ EventSchema.statics.findAndDelete = function(_id, organizerId) {
   return Event.remove({_id, organizerId});
 }
 
-EventSchema.statics.addApplicationToEvent = function(_id) {
-    console.log(_id);
+EventSchema.statics.addApplicationToEvent = function(_id, application) {
+    console.log(_id, application);
     const Event = this;
-    return Event.update({_id}, {$set:{application: _id}}, {new: true});
+    return Event.update({_id}, {$set:{application}}, {new: true});
 }
 
 var Event = mongoose.model('Event', EventSchema);
