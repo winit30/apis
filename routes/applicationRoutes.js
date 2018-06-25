@@ -30,22 +30,12 @@ Router.post("/apply", authenticate, (req, res) => {
             applier: _.find(result.appliers, ["applierName", user.name])
         };
         Event.addApplicationToEvent(body.eventId, result._id).then((resultwa) => {
-          console.log("here");
           console.log(resultwa);
         });
         res.send(response);
     }).catch((err) => {
         console.log(err);
         res.send(err);
-    });
-});
-
-Router.get("/getallapplications/:eventId", authenticate, (req, res) => {
-    const user = req.user;
-    Applications.getApplicationForEvent(req.params.eventId).then((application) => {
-        res.send(application);
-    }).catch((e) => {
-        res.send(e);
     });
 });
 

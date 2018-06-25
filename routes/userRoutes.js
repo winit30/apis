@@ -23,11 +23,9 @@ Router.get('/user', authenticate , (req, res) => {
 });
 
 //Get user request
-Router.post('/username', authenticate , (req, res) => {
-	const body = req.body;
-	User.findOne({_id: body._id}).then((user) => {
-			console.log(user);
-			res.send(user.name);
+Router.get('/profile/:_id', authenticate , (req, res) => {
+	User.findOne({_id: req.params._id}).then((user) => {
+			res.send(user);
 	}).catch((e) => {
 			res.status(400).send(e);
 	})
